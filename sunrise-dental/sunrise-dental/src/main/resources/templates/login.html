@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Sunrise Dental Clinic</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+</head>
+<body>
+<div class="navbar" th:if="${session.staff != null}">
+  <span class="brand">&#129463; Sunrise Dental</span>
+  <a th:href="@{/dashboard}">Dashboard</a>
+  <a th:href="@{/register}">Register Appointment</a>
+  <a th:href="@{/search}">Search</a>
+  <a th:href="@{/bill}">Billing</a>
+  <a th:href="@{/reports}">Reports</a>
+  <a th:href="@{/help}">Help</a>
+  <span class="right"></span>
+  <a th:href="@{/logout}">Logout (<span th:text="${session.staff.username}"></span>)</a>
+</div>
+
+<div class="container login-box">
+  <h1>Staff Login</h1>
+  <p style="color:#667">Sunrise Dental Clinic Management System</p>
+  <div class="error" th:if="${error}" th:text="${error}"></div>
+  <form method="post" action="/login">
+    <label>Username</label>
+    <input type="text" name="username" required autofocus>
+    <label>Password</label>
+    <input type="password" name="password" required>
+    <button type="submit">Login</button>
+  </form>
+  <p style="color:#889; font-size:13px; margin-top:18px">
+    Demo accounts &mdash; admin / admin123 &nbsp;|&nbsp; reception1 / welcome1</p>
+</div>
+
+</body>
+</html>

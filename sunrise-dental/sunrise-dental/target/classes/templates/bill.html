@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Billing - Sunrise Dental Clinic</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+</head>
+<body>
+<div class="navbar" th:if="${session.staff != null}">
+  <span class="brand">&#129463; Sunrise Dental</span>
+  <a th:href="@{/dashboard}">Dashboard</a>
+  <a th:href="@{/register}">Register Appointment</a>
+  <a th:href="@{/search}">Search</a>
+  <a th:href="@{/bill}">Billing</a>
+  <a th:href="@{/reports}">Reports</a>
+  <a th:href="@{/help}">Help</a>
+  <span class="right"></span>
+  <a th:href="@{/logout}">Logout (<span th:text="${session.staff.username}"></span>)</a>
+</div>
+
+<div class="container">
+  <h1>Calculate &amp; Print Bill</h1>
+  <div class="error" th:if="${error}" th:text="${error}"></div>
+  <form method="get" action="/bill">
+    <label>Appointment Number</label>
+    <input type="text" name="appointmentNo" placeholder="e.g. APT-2024-0001" required>
+    <button type="submit">Find Appointment</button>
+  </form>
+
+  <div th:if="${appointment != null and bill == null}">
+    <h2>Appointment Found</h2>
+    <p>Patient: <b th:text="${appointment.patient.name}"></b> |
+       Treatment: <b th:text="${appointment.treatmentType.name}"></b> |
+       Date: <b th:text="${appointment.date}"></b> <b th:text="${appointment.time}"></b></p>
+    <div class="error" th:if="${existingBill != null}">
+      A bill already exists for this appointment:
+      <span class="mono" th:text="${existingBill.billNo}"></span> (Rs. <span th:text="${existingBill.total}"></span>)
+    </div>
+    <form method="post" action="/bill" th:if="${existingBill == null}">
+      <input type="hidden" name="appointmentNo" th:value="${appointment.appointmentNo}">
+      <label style="display:flex; gap:8px; align-items:center; margin-top:16px">
+        <input type="checkbox" name="loyalty" value="true" style="width:auto">
+        Apply loyalty discount (10%)
+      </label>
+      <button type="submit">Generate Bill</button>
+    </form>
+  </div>
+
+  <div th:if="${bill != null}" class="bill-box" id="printable">
+    <h2 style="text-align:center; margin-top:0">Sunrise Dental Clinic</h2>
+    <p style="text-align:center; color:#667">42, Galle Road, Colombo 03 | Tel: 011-2345678</p>
+    <div class="bill-row"><span>Bill No:</span><b class="mono" th:text="${bill.billNo}"></b></div>
+    <div class="bill-row"><span>Bill Date:</span><b th:text="${bill.billDate}"></b></div>
+    <div class="bill-row"><span>Appointment No:</span><b class="mono" th:text="${bill.appointment.appointmentNo}"></b></div>
+    <div class="bill-row"><span>Patient:</span><b th:text="${bill.appointment.patient.name}"></b></div>
+    <div class="bill-row"><span>Dentist:</span><b th:text="${bill.appointment.dentist.name}"></b></div>
+    <div class="bill-row"><span>Treatment:</span><b th:text="${bill.appointment.treatmentType.name}"></b></div>
+    <div class="bill-row"><span>Consultation Fee:</span><span th:text="'Rs. ' + ${#numbers.formatDecimal(bill.consultationFee, 1, 2)}"></span></div>
+    <div class="bill-row"><span>Treatment Cost:</span><span th:text="'Rs. ' + ${#numbers.formatDecimal(bill.treatmentCost, 1, 2)}"></span></div>
+    <div class="bill-row" th:if="${bill.discount > 0}"><span>Discount:</span>
+      <span style="color:#1e6b32" th:text="'- Rs. ' + ${#numbers.formatDecimal(bill.discount, 1, 2)}"></span></div>
+    <div class="bill-row total"><span>TOTAL:</span>
+      <span th:text="'Rs. ' + ${#numbers.formatDecimal(bill.total, 1, 2)}"></span></div>
+    <p style="text-align:center; color:#889; margin-top:18px">Thank you. Get well soon!</p>
+  </div>
+  <button th:if="${bill != null}" onclick="window.print()">&#128438; Print Receipt</button>
+</div>
+
+</body>
+</html>

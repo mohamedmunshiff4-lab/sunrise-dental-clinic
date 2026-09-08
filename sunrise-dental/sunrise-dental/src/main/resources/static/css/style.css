@@ -1,0 +1,28 @@
+body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background: #f0f4f8; color: #223; }
+.navbar { background: #1f3864; padding: 12px 24px; display: flex; gap: 20px; align-items: center; }
+.navbar a { color: #fff; text-decoration: none; font-weight: 600; font-size: 14px; }
+.navbar .brand { font-size: 18px; font-weight: 800; }
+.navbar .right { margin-left: auto; }
+.container { max-width: 900px; margin: 28px auto; background: #fff; padding: 28px 34px;
+            border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+h1 { color: #1f3864; font-size: 24px; }
+h2 { color: #1f3864; font-size: 18px; }
+label { display: block; margin-top: 14px; font-weight: 600; font-size: 14px; }
+input, select { width: 100%; padding: 9px; margin-top: 4px; border: 1px solid #b9c6d8;
+                border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+button, .btn { background: #1f3864; color: #fff; border: 0; padding: 11px 22px; border-radius: 6px;
+               cursor: pointer; font-size: 14px; font-weight: 600; margin-top: 18px; }
+button:hover, .btn:hover { background: #2a4f8a; }
+.error { background: #fde8e8; color: #9b1c1c; padding: 11px 14px; border-radius: 6px; margin-top: 14px; }
+.success { background: #e6f7e9; color: #1e6b32; padding: 11px 14px; border-radius: 6px; margin-top: 14px; }
+table { width: 100%; border-collapse: collapse; margin-top: 18px; font-size: 14px; }
+th { background: #1f3864; color: #fff; padding: 9px; text-align: left; }
+td { padding: 9px; border-bottom: 1px solid #dfe6ef; }
+tr:nth-child(even) { background: #f6f9fc; }
+.login-box { max-width: 380px; margin: 70px auto; }
+.field-error { color: #9b1c1c; font-size: 12.5px; margin-top: 3px; }
+.bill-box { border: 2px dashed #1f3864; padding: 22px; border-radius: 8px; margin-top: 18px; }
+.bill-row { display: flex; justify-content: space-between; padding: 5px 0; }
+.total { font-size: 19px; font-weight: 800; border-top: 2px solid #1f3864; margin-top: 8px; padding-top: 9px; }
+.help-step { margin: 13px 0; padding-left: 13px; border-left: 4px solid #1f3864; }
+.mono { font-family: Consolas, monospace; background: #eef3fa; padding: 1px 6px; border-radius: 4px; }
